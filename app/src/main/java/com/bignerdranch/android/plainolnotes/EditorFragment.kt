@@ -9,9 +9,6 @@ import android.view.ViewGroup
 
 class EditorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = EditorFragment()
-    }
 
     private lateinit var viewModel: EditorViewModel
 
@@ -25,7 +22,7 @@ class EditorFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }

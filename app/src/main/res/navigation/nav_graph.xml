@@ -9,7 +9,11 @@
         android:id="@+id/mainFragment"
         android:name="com.bignerdranch.android.plainolnotes.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_edit_note"
+            app:destination="@id/editorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editorFragment"
         android:name="com.bignerdranch.android.plainolnotes.EditorFragment"
