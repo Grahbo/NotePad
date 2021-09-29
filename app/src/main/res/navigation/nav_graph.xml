@@ -10,4 +10,9 @@
         android:name="com.bignerdranch.android.plainolnotes.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" />
+    <fragment
+        android:id="@+id/editorFragment"
+        android:name="com.bignerdranch.android.plainolnotes.EditorFragment"
+        android:label="editor_fragment"
+        tools:layout="@layout/editor_fragment" />
 </navigation>
