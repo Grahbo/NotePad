@@ -66,8 +66,14 @@ class MainFragment : Fragment(),
         return when (item.itemId){
             R.id.action_sample_data -> addSampleData()
             R.id.action_delete -> deleteSelectedNotes()
+            R.id.action_delete_all_data -> deleteAllNotes()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun deleteAllNotes(): Boolean {
+        viewModel.deleteAllNotes()
+        return true
     }
 
     private fun deleteSelectedNotes(): Boolean {
