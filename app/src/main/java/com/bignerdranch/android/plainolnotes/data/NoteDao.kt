@@ -1,10 +1,7 @@
 package com.bignerdranch.android.plainolnotes.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface NoteDao {
@@ -24,4 +21,7 @@ interface NoteDao {
 
     @Query("SELECT COUNT(*) from notes")
     fun getCount(): Int
+
+    @Delete
+    fun deleteNotes(selectedNotes: List<NoteEntity>): Int
 }

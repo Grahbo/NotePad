@@ -1,15 +1,38 @@
 package com.bignerdranch.android.plainolnotes
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.bignerdranch.android.plainolnotes.data.AppDataBase
 import com.bignerdranch.android.plainolnotes.data.NoteEntity
 import com.bignerdranch.android.plainolnotes.data.SampleDataProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class MainViewModel : ViewModel() {
+class MainViewModel(app: Application) : AndroidViewModel(app) {
 
-    val notesList = MutableLiveData<List<NoteEntity>>()
-    
-    init{
-        notesList.value=SampleDataProvider.getNotes()
+    private val database = AppDataBase.getInstance(app)
+
+    val notesList = database?.noteDao()?.getAll()
+
+    fun addSampleData (){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                val sampleNotes = SampleDataProvider.getNotes()
+                database?.noteDao()?.insertAll(sampleNotes)
+            }
+        }
     }
+
+    fun deleteNotes(selectedNotes: List<NoteEntity>) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                database?.noteDao()?.deleteNotes(selectedNotes)
+            }
+        }
+    }
+
 }
