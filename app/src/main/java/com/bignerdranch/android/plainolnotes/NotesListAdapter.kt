@@ -1,6 +1,5 @@
 package com.bignerdranch.android.plainolnotes
 
-import android.net.sip.SipSession
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,7 @@ class NotesListAdapter(private val notesList: List<NoteEntity>,
         with(holder.binding) {
             noteText.text = note.text
             root.setOnClickListener{
-                listener.onItemClick(note.id)
+                listener.editNote(note.id)
             }
 
             fab.setOnClickListener {
@@ -58,7 +57,7 @@ class NotesListAdapter(private val notesList: List<NoteEntity>,
     }
 
     interface ListItemListener{
-        fun onItemClick(noteId: Int)
+        fun editNote(noteId: Int)
         fun onItemSelectionChanged()
     }
 }
