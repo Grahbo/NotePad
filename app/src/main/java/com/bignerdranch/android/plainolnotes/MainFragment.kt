@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bignerdranch.android.plainolnotes.data.NoteEntity
 import com.bignerdranch.android.plainolnotes.databinding.MainFragmentBinding
 
 class MainFragment : Fragment(),
@@ -48,6 +49,11 @@ class MainFragment : Fragment(),
             adapter = NotesListAdapter(it, this@MainFragment)
             binding.recyclerView.adapter = adapter
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
+            val selectedNotes =
+                savedInstanceState?.getParcelableArrayList<NoteEntity>(SELECTED_NOTES_KEY)
+            adapter.selectedNotes.addAll(selectedNotes ?: emptyList())
+
         })
 
         binding.floatingActionButton.setOnClickListener {
@@ -105,4 +111,15 @@ class MainFragment : Fragment(),
     override fun onItemSelectionChanged() {
         requireActivity().invalidateOptionsMenu()
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (this::adapter.isInitialized){
+            outState.putParcelableArrayList(SELECTED_NOTES_KEY,
+            adapter.selectedNotes)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+
+
 }
